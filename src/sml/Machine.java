@@ -36,7 +36,7 @@ public class Machine {
 
         Machine m = new Machine();
         //Translator t = new Translator(args[0]);
-        Translator t = new Translator("program1.txt");
+        Translator t = new Translator("programFactorial.txt");
         t.readAndTranslate(m.getLabels(), m.getProg());
 
         System.out.println("Here is the program; it has " + m.getProg().size() + " instructions.");

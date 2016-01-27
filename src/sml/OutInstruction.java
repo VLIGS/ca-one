@@ -18,7 +18,7 @@ public class OutInstruction extends Instruction{
 
     @Override
     public String toString() {
-        return super.toString() + " printing " + register + "to console";
+        return super.toString() + " print contens of register " + register + " to console";
     }
 }
 

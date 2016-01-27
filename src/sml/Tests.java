@@ -58,4 +58,13 @@ public class Tests {
         t.readAndTranslate(myTestMachine.getLabels(), myTestMachine.getProg());
         myTestMachine.execute();
     }
+    @Test
+    public void testFactorial(){
+        Machine myTestMachine = new Machine();
+        Translator t = new Translator("programFactorial.txt");
+        t.readAndTranslate(myTestMachine.getLabels(), myTestMachine.getProg());
+        myTestMachine.execute();
+        Registers myTestMachineRegisters = myTestMachine.getRegisters();
+        assertEquals(720,myTestMachineRegisters.getRegister(21));
+    }
 }
