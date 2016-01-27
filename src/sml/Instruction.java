@@ -2,8 +2,6 @@ package sml;
 
 /**
  * This class is the superclass of the classes for machine instructions
- *
- * @author someone
  */
 
 public abstract class Instruction {
@@ -28,4 +26,5 @@ public abstract class Instruction {
     // Execute this instruction on machine m.
 
     public abstract void execute(Machine m);
+    //public abstract void setRegisters();
 }
