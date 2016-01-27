@@ -42,4 +42,13 @@ public class Tests {
         Registers myTestMachineRegisters = myTestMachine.getRegisters();
         assertEquals(12,myTestMachineRegisters.getRegister(21));
     }
+    @Test
+    public void testDivInstruction(){
+        Machine myTestMachine = new Machine();
+        Translator t = new Translator("program4.txt");
+        t.readAndTranslate(myTestMachine.getLabels(), myTestMachine.getProg());
+        myTestMachine.execute();
+        Registers myTestMachineRegisters = myTestMachine.getRegisters();
+        assertEquals(3,myTestMachineRegisters.getRegister(21));
+    }
 }
