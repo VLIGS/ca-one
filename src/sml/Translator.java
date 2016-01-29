@@ -2,9 +2,11 @@ package sml;
 
 import java.io.File;
 import java.io.IOException;
+import java.lang.reflect.Constructor;
 import java.util.ArrayList;
 import java.util.NoSuchElementException;
 import java.util.Scanner;
+import java.util.regex.Pattern;
 
 /*
  * The translator of a <b>S</b><b>M</b>al<b>L</b> program.
@@ -69,14 +71,73 @@ public class Translator {
     }
 
     // line should consist of an MML instruction, with its label already
-    // removed. Translate line into an instruction with label label
+    // removed. Translate line into an instruction with label
     // and return the instruction
     public Instruction getInstruction(String label) {
         int s1; // Possible operands of the instruction
         int s2;
         int r;
         String s3;
-        int x;
+
+        if (line.equals(""))
+            return null;
+
+        String ins = scan();
+        line = line.trim();
+        String className = Instruction.class.getPackage().getName() + "." + Character.toUpperCase(ins.charAt(0)) + ins.substring(1)+"Instruction";
+        Constructor[] myConstructors = null;
+
+        try{
+            myConstructors = Class.forName(className).getConstructors();
+        } catch (ClassNotFoundException e) {
+            System.out.println("Error");
+        }
+
+        String[] arguments = line.split(Pattern.quote(" "));
+
+
+        switch (ins) {
+            case "add":
+                r = scanInt();
+                s1 = scanInt();
+                s2 = scanInt();
+                return new AddInstruction(label, r, s1, s2);
+            case "lin":
+                r = scanInt();
+                s1 = scanInt();
+                return new LinInstruction(label, r, s1);
+            case "sub":
+                r = scanInt();
+                s1 = scanInt();
+                s2 = scanInt();
+                return new SubInstruction(label, r, s1, s2);
+            case "mul":
+                r = scanInt();
+                s1 = scanInt();
+                s2 = scanInt();
+                return new MulInstruction(label, r, s1, s2);
+            case "div":
+                r = scanInt();
+                s1 = scanInt();
+                s2 = scanInt();
+                return new DivInstruction(label, r, s1, s2);
+            case "out":
+                r = scanInt();
+                return new OutInstruction(label, r);
+            case "bnz":
+                r = scanInt();
+                s3 = scan();
+                return new BnzInstruction(label, r, s3);
+        }
+        return null;
+    }
+
+    /**
+    public Instruction getInstruction(String label) {
+        int s1; // Possible operands of the instruction
+        int s2;
+        int r;
+        String s3;
 
         if (line.equals(""))
             return null;
@@ -117,6 +178,7 @@ public class Translator {
         }
         return null;
     }
+     **/
 
     /*
      * Return the first word of line and remove it from line. If there is no
