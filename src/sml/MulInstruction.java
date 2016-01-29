@@ -5,12 +5,14 @@ public class MulInstruction extends Instruction{
     private int op1;
     private int op2;
 
+    /**
     public MulInstruction(String label, String op) {
         super(label, op);
     }
+     **/
 
     public MulInstruction(String label, int result, int op1, int op2) {
-        this(label, "add");
+        super(label, "add");
         this.result = result;
         this.op1 = op1;
         this.op2 = op2;

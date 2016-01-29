@@ -84,17 +84,31 @@ public class Translator {
 
         String ins = scan();
         line = line.trim();
-        String className = Instruction.class.getPackage().getName() + "." + Character.toUpperCase(ins.charAt(0)) + ins.substring(1)+"Instruction";
-        Constructor[] myConstructors = null;
-
-        try{
-            myConstructors = Class.forName(className).getConstructors();
-        } catch (ClassNotFoundException e) {
-            System.out.println("Error");
-        }
 
         String[] arguments = line.split(Pattern.quote(" "));
+        Class parameters [] = new Class [arguments.length+1];
+        parameters[0] = ins.getClass();
 
+        for (int a = 1; a<parameters.length; a++)
+        {
+            if(isNumeric(arguments[a-1])){
+                parameters[a] = int.class;
+            }
+            else{
+                parameters[a] = String.class;
+            }
+        }
+
+        String className = Instruction.class.getPackage().getName() + "." + Character.toUpperCase(ins.charAt(0)) + ins.substring(1)+"Instruction";
+
+        try{
+            Constructor myConstructor = Class.forName(className).getConstructor(parameters);
+        } catch (ClassNotFoundException e) {
+            System.out.println("No suitable instruction exist");
+        }
+        catch (NoSuchMethodException e) {
+            System.out.println("No suitable constructor exist");
+        }
 
         switch (ins) {
             case "add":
@@ -130,6 +144,11 @@ public class Translator {
                 return new BnzInstruction(label, r, s3);
         }
         return null;
+    }
+
+    private boolean isNumeric(String str)
+    {
+        return str.matches("-?\\d+(\\.\\d+)?");  //match a number with optional '-' and decimal.
     }
 
     /**
