@@ -2,11 +2,10 @@ package sml;
 
 public class OutInstruction extends Instruction{
     private int register;
-    /**
+
     public OutInstruction(String label, String opcode) {
         super(label, opcode);
     }
-     **/
 
     public OutInstruction(String label, int register) {
         super(label, "out");

@@ -10,11 +10,11 @@ public class AddInstruction extends Instruction {
     private int op1;
     private int op2;
 
-    /**
+
     public AddInstruction(String label, String op) {
         super(label, op);
     }
-     **/
+
 
     public AddInstruction(String label, int result, int op1, int op2) {
         super(label, "add");

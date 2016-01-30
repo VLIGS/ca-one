@@ -75,6 +75,7 @@ public class Translator {
     // removed. Translate line into an instruction with label
     // and return the instruction
     public Instruction getInstruction(String label) {
+
         Constructor myConstructor = null;
         Instruction myInstruction = null;
 
@@ -125,7 +126,6 @@ public class Translator {
             System.out.println("No suitable instruction exist");
         }
         return  myInstruction;
-
     }
 
     private boolean isNumeric(String str)
