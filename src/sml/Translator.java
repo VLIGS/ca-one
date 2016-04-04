@@ -91,16 +91,9 @@ public class Translator {
         parameters[0] = ins.getClass();
         myConstructorParameters[0] = ins;
 
-        for (int a = 1; a<parameters.length; a++)
-        {
-            if(isNumeric(arguments[a-1])){
-                parameters[a] = int.class;
-                myConstructorParameters[a] = scanInt();
-            }
-            else{
-                parameters[a] = String.class;
-                myConstructorParameters[a] = scan();
-            }
+        for (int a = 1; a<parameters.length; a++){
+                parameters[a] = getParameterClass(arguments[a-1]);
+                myConstructorParameters[a] = getParameter(arguments[a-1]);
         }
 
         String className = Instruction.class.getPackage().getName() + "." + Character.toUpperCase(ins.charAt(0)) + ins.substring(1)+"Instruction";
@@ -128,6 +121,23 @@ public class Translator {
         return  myInstruction;
     }
 
+    private Class getParameterClass(String parameter){
+        if(isNumeric(parameter)){
+            return int.class;
+        }
+        else{
+            return String.class;
+        }
+
+    }
+    private Object getParameter(String parameter){
+        if(isNumeric(parameter)){
+            return scanInt();
+        }
+        else{
+            return scan();
+        }
+    }
     private boolean isNumeric(String str)
     {
         return str.matches("-?\\d+(\\.\\d+)?");  //match a number with optional '-' and decimal.
